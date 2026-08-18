@@ -21,32 +21,47 @@
 
 <body>
 
-    <!-- OVERLAY DE LOGIN / ACCESO -->
-    <div id="login-overlay">
+    <!-- OVERLAY DE LOGIN (VISIBLE POR DEFECTO) -->
+    <div id="login-overlay" style="display: flex;">
         <div id="login-box">
-            <img src="assets/Isotipo_The_Real_Escape.png" alt="The Real Escape" width="60" style="margin-bottom: 15px;" onerror="this.style.display='none'">
-            <h2 style="font-family: 'Montserrat', sans-serif; font-weight: 800; color: #f9f3e1; font-size: 20px; letter-spacing: 0.05em; text-transform: uppercase;">THE REAL ESCAPE</h2>
-            <p style="color: #e9b388; font-size: 11px; margin: 4px 0 20px 0; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;">Panel de Emisión de Reservas</p>
+            <!-- Vector Oficial Avión de Papel -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="60" height="60" style="display:block; margin: 0 auto 12px auto;">
+                <g stroke-linejoin="round" stroke-linecap="round">
+                    <polygon points="80,20 11,50 33,55" fill="#204628" stroke="#204628" stroke-width="1" />
+                    <polygon points="80,20 33,55 45,78" fill="#849d71" stroke="#849d71" stroke-width="1" />
+                    <polygon points="80,20 45,58 45,78" fill="#4f6e44" stroke="#4f6e44" stroke-width="1" />
+                    <polygon points="80,20 45,58 79,63" fill="#204628" stroke="#204628" stroke-width="1" />
+                </g>
+            </svg>
+            <h2 style="font-family: 'Montserrat', sans-serif; font-weight: 900; color: #204628; font-size: 20px; letter-spacing: 0.05em; text-transform: uppercase;">THE REAL ESCAPE</h2>
+            <p style="color: #a66741; font-size: 11px; margin: 4px 0 20px 0; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;">Panel de Emisión de Reservas</p>
             <form id="login-form">
                 <input type="password" id="password-input" placeholder="Contraseña de acceso" required>
-                <button type="submit" style="margin-top: 10px;">Ingresar al Sistema</button>
-                <p id="login-error" style="color: #ff6b6b; font-size: 12px; font-weight: 600; display: none; margin-top: 12px;">Contraseña incorrecta.</p>
+                <button type="submit" class="submit-button" style="margin-top: 15px; padding: 12px;">Ingresar al Sistema</button>
+                <p id="login-error" style="color: #e53e3e; font-size: 12px; font-weight: 700; display: none; margin-top: 12px;">Contraseña incorrecta.</p>
             </form>
         </div>
     </div>
 
-    <!-- LOADER -->
-    <div id="loader-overlay">
+    <!-- LOADER (OCULTO POR DEFECTO PARA NO BLOQUEAR) -->
+    <div id="loader-overlay" style="display: none;">
         <div class="spinner"></div>
         <p id="loader-text" style="font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: #204628; text-transform: uppercase; letter-spacing: 0.05em;">Procesando...</p>
     </div>
 
-    <div class="wrapper">
+    <div class="wrapper" style="display: none;">
         
         <!-- HEADER -->
         <section class="section" id="form-title-section" style="padding-bottom: 10px;">
             <header class="header">
-                <img src="assets/Isotipo_The_Real_Escape.png" alt="The Real Escape" width="65" style="display: block; margin: 0 auto 10px auto;" onerror="this.style.display='none'">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="60" height="60" style="display:block; margin: 0 auto 10px auto;">
+                    <g stroke-linejoin="round" stroke-linecap="round">
+                        <polygon points="80,20 11,50 33,55" fill="#f9f3e1" stroke="none" />
+                        <polygon points="80,20 33,55 45,78" fill="#e9b388" stroke="none" />
+                        <polygon points="80,20 45,58 45,78" fill="#849d71" stroke="none" />
+                        <polygon points="80,20 45,58 79,63" fill="#f9f3e1" stroke="none" />
+                    </g>
+                </svg>
                 <span class="brand-name">THE REAL ESCAPE</span>
                 <span class="brand-sub">Agencia de Viajes</span>
             </header>
@@ -190,7 +205,14 @@
                 
                 <!-- HEADER VOUCHER -->
                 <header class="confirmation-header">
-                    <img src="assets/Isotipo_The_Real_Escape.png" alt="The Real Escape" width="55" style="display: block; margin: 0 auto 8px auto;" onerror="this.style.display='none'">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="55" height="55" style="display:block; margin: 0 auto 8px auto;">
+                        <g stroke-linejoin="round" stroke-linecap="round">
+                            <polygon points="80,20 11,50 33,55" fill="#f9f3e1" stroke="none" />
+                            <polygon points="80,20 33,55 45,78" fill="#e9b388" stroke="none" />
+                            <polygon points="80,20 45,58 45,78" fill="#849d71" stroke="none" />
+                            <polygon points="80,20 45,58 79,63" fill="#f9f3e1" stroke="none" />
+                        </g>
+                    </svg>
                     <span class="brand-name" style="color: #f9f3e1; font-size: 20px;">THE REAL ESCAPE</span>
                     <span class="brand-sub" style="color: #e9b388;">Agencia de Viajes</span>
                 </header>
@@ -245,7 +267,7 @@
                         <div class="doc-section-body" style="text-align: center;">
                             <p style="font-size: 12px; color: var(--c-gray); margin-bottom: 10px;">Para confirmar este documento, el titular debe ingresar y firmar en el siguiente enlace oficial:</p>
                             <div id="remote-signature-box" style="padding: 12px; border: 1px dashed var(--c-orange); border-radius: 8px; background-color: var(--c-surface-subtle);">
-                                <strong style="color: var(--c-primary); font-size: 13px;">🔗 <span id="remote-signature-url">tre-reservas.web.app/firma.html</span></strong>
+                                <strong style="color: var(--c-primary); font-size: 13px;">🔗 <span id="remote-signature-url">tre-col.github.io/RESERVA/firma.html</span></strong>
                             </div>
                         </div>
                     </div>
