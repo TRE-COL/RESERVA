@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Firma de Reserva — The Real Escape</title>
+    <meta name="description" content="Aceptación de términos y firma digital de pre-reserva.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="pre-reserva-style.css">
+
+    <style>
+        .terms-scroll-box {
+            max-height: 220px;
+            overflow-y: auto;
+            background-color: var(--c-surface-subtle);
+            border: 1px solid var(--c-border);
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 18px;
+            font-size: 12px;
+            line-height: 1.6;
+            color: var(--c-dark);
+            text-align: left;
+        }
+        .terms-scroll-box h4 {
+            color: var(--c-primary);
+            font-size: 13px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            margin: 14px 0 6px 0;
+            text-transform: uppercase;
+        }
+        .terms-scroll-box h4:first-child { margin-top: 0; }
+        .terms-scroll-box ul { padding-left: 18px; margin-bottom: 10px; }
+
+        .signature-container {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            background-color: #ffffff;
+            border: 2px dashed var(--c-orange);
+            border-radius: 14px;
+            touch-action: none;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        .signature-placeholder {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            color: var(--c-gray);
+            font-size: 12px;
+            font-weight: 600;
+            opacity: 0.6;
+        }
+        .signature-saved-box {
+            text-align: center;
+            padding: 24px;
+            background: var(--c-surface-subtle);
+            border: 1px solid var(--c-border);
+            border-radius: 16px;
+            margin-top: 20px;
+        }
+        .signature-saved-box img {
+            max-width: 280px;
+            width: 100%;
+            height: auto;
+            border-bottom: 2px solid var(--c-border);
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="loader-overlay" style="display: flex;">
+        <div class="spinner"></div>
+        <p id="loader-text" style="font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: #204628;">Cargando detalles de tu reserva...</p>
+    </div>
+
+    <div class="wrapper" id="main-content" style="display: none;">
+        
+        <!-- HEADER -->
+        <section class="section" id="form-title-section" style="padding-bottom: 10px;">
+            <header class="header">
+                <!-- SVG Avión Geométrico Embebido -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="60" height="60" style="display:block; margin: 0 auto 10px auto;">
+                    <g stroke-linejoin="round" stroke-linecap="round">
+                        <polygon points="80,20 11,50 33,55" fill="#f9f3e1" stroke="none" />
+                        <polygon points="80,20 33,55 45,78" fill="#e9b388" stroke="none" />
+                        <polygon points="80,20 45,58 45,78" fill="#849d71" stroke="none" />
+                        <polygon points="80,20 45,58 79,63" fill="#f9f3e1" stroke="none" />
+                    </g>
+                </svg>
+                <span class="brand-name">THE REAL ESCAPE</span>
+                <span class="brand-sub">Agencia de Viajes</span>
+            </header>
+            <h1 style="margin-top: 25px;">Confirmación y Firma</h1>
+            <p class="intro-text" id="intro-text">Revisa los términos del servicio y estampa tu firma digital para formalizar tu viaje.</p>
+            
+            <div class="doc-section" style="text-align: left;">
+                <div class="doc-section-header">Resumen de tu Viaje</div>
+                <div class="doc-section-body" id="info-box"></div>
+            </div>
+        </section>
+
+        <!-- FORMULARIO DE FIRMA -->
+        <section class="section" id="firma-section" style="padding-top: 0;">
+            <form id="firma-form" novalidate>
+                
+                <!-- TÉRMINOS -->
+                <fieldset class="form-fieldset">
+                    <legend>1. Términos y Condiciones</legend>
+                    <div class="terms-scroll-box">
+                        <h4>1. Pagos y Anticipos</h4>
+                        <ul>
+                            <li>La reserva se formaliza con el abono acordado. El saldo restante debe liquidarse en las fechas estipuladas con el asesor antes del viaje.</li>
+                            <li>Precios y cupos sujetos a disponibilidad del proveedor hasta completar el pago total.</li>
+                            <li>Tarifas internacionales liquidadas a la TRM oficial del día de cada pago.</li>
+                        </ul>
+                        <h4>2. Políticas de Cancelación</h4>
+                        <ul>
+                            <li>Cancelaciones sujetas a penalidades y políticas específicas de cada operador, hotel y aerolínea.</li>
+                            <li>Los gastos administrativos de intermediación no son reembolsables.</li>
+                        </ul>
+                        <h4>3. Documentos del Pasajero</h4>
+                        <ul>
+                            <li>Es deber del pasajero portar pasaporte, cédula, visas y certificados médicos vigentes. The Real Escape no asume responsabilidad por rechazos migratorios.</li>
+                        </ul>
+                        <h4>4. Protección de Datos (Ley 1581 de 2012)</h4>
+                        <ul>
+                            <li>Tus datos personales se utilizarán exclusivamente para la emisión y reserva de tus servicios turísticos.</li>
+                        </ul>
+                    </div>
+
+                    <div style="display: flex; align-items: flex-start; gap: 10px; background: #ffffff; padding: 14px; border-radius: 10px; border: 1px solid var(--c-border);">
+                        <input type="checkbox" id="terms-checkbox" style="width: 20px; height: 20px; margin-top: 2px; accent-color: var(--c-primary);" required>
+                        <label for="terms-checkbox" style="font-size: 13px; font-weight: 600; color: var(--c-dark); cursor: pointer; line-height: 1.4;">
+                            He leído y acepto los Términos y Condiciones, políticas de reserva y autorizo el tratamiento de mis datos personales.
+                        </label>
+                    </div>
+                </fieldset>
+
+                <!-- CANVAS DE FIRMA -->
+                <fieldset class="form-fieldset">
+                    <legend>2. Firma Digital del Titular</legend>
+                    <div class="signature-container">
+                        <canvas id="signature-canvas"></canvas>
+                        <div class="signature-placeholder" id="signature-placeholder">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="28" height="28"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                            <span>Dibuja tu firma aquí (con el dedo o mouse)</span>
+                        </div>
+                    </div>
+                    
+                    <button type="button" id="clear-signature-btn" style="background: transparent; border: 1px solid var(--c-terracotta); color: var(--c-terracotta); padding: 8px 16px; border-radius: 8px; font-weight: 700; font-size: 12px; cursor: pointer; display: block; margin: 0 auto;">
+                        🗑️ Limpiar y Volver a Firmar
+                    </button>
+                </fieldset>
+
+                <button type="submit" class="submit-button" id="submit-btn">Aceptar y Enviar Firma Oficial</button>
+                <div id="firma-status" style="display: none; text-align: center; margin-top: 15px; font-weight: 700; font-size: 13px;"></div>
+            </form>
+        </section>
+
+        <!-- PANTALLA DE ÉXITO (YA FIRMADO) -->
+        <section class="section" id="already-signed-section" style="display: none; padding-top: 10px;">
+            <div style="width: 60px; height: 60px; background: var(--c-primary); color: #ffffff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px auto; border: 2px solid var(--c-orange);">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="32" height="32"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+            </div>
+            <h2 style="font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 22px; color: var(--c-primary);">¡Reserva Confirmada y Firmada!</h2>
+            <p style="font-size: 13px; color: var(--c-gray); margin-top: 6px;">Los términos y tu firma digital han sido registrados de forma segura.</p>
+
+            <div class="signature-saved-box">
+                <span style="font-size: 10px; font-weight: 800; color: var(--c-gray); text-transform: uppercase; letter-spacing: 0.08em; display: block; margin-bottom: 8px;">Firma Digital Registrada</span>
+                <img id="saved-signature-img" src="" alt="Firma Registrada">
+                <p style="font-weight: 800; color: var(--c-primary); font-size: 14px;" id="saved-signature-name"></p>
+                <p style="font-size: 11px; color: var(--c-gray); margin-top: 4px;" id="saved-signature-date"></p>
+            </div>
+        </section>
+
+    </div>
+
+    <script type="module" src="firma.js"></script>
+</body>
+</html>

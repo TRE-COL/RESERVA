@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pre-Reserva — The Real Escape</title>
+    <meta name="description" content="Gestión y emisión oficial de pre-reservas y confirmaciones de viaje.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+
+    <!-- Librerías Core -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+    <link rel="stylesheet" href="pre-reserva-style.css">
+</head>
+
+<body>
+
+    <!-- OVERLAY DE LOGIN / ACCESO -->
+    <div id="login-overlay">
+        <div id="login-box">
+            <img src="assets/Isotipo_The_Real_Escape.png" alt="The Real Escape" width="60" style="margin-bottom: 15px;" onerror="this.style.display='none'">
+            <h2 style="font-family: 'Montserrat', sans-serif; font-weight: 800; color: #f9f3e1; font-size: 20px; letter-spacing: 0.05em; text-transform: uppercase;">THE REAL ESCAPE</h2>
+            <p style="color: #e9b388; font-size: 11px; margin: 4px 0 20px 0; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;">Panel de Emisión de Reservas</p>
+            <form id="login-form">
+                <input type="password" id="password-input" placeholder="Contraseña de acceso" required>
+                <button type="submit" style="margin-top: 10px;">Ingresar al Sistema</button>
+                <p id="login-error" style="color: #ff6b6b; font-size: 12px; font-weight: 600; display: none; margin-top: 12px;">Contraseña incorrecta.</p>
+            </form>
+        </div>
+    </div>
+
+    <!-- LOADER -->
+    <div id="loader-overlay">
+        <div class="spinner"></div>
+        <p id="loader-text" style="font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: #204628; text-transform: uppercase; letter-spacing: 0.05em;">Procesando...</p>
+    </div>
+
+    <div class="wrapper">
+        
+        <!-- HEADER -->
+        <section class="section" id="form-title-section" style="padding-bottom: 10px;">
+            <header class="header">
+                <img src="assets/Isotipo_The_Real_Escape.png" alt="The Real Escape" width="65" style="display: block; margin: 0 auto 10px auto;" onerror="this.style.display='none'">
+                <span class="brand-name">THE REAL ESCAPE</span>
+                <span class="brand-sub">Agencia de Viajes</span>
+            </header>
+            <h1 style="margin-top: 25px;">Gestión de Reservas</h1>
+            <p class="intro-text">Genera documentos oficiales de viaje, contratos con firma digital y confirmaciones automáticas.</p>
+        </section>
+
+        <!-- FORMULARIO PRINCIPAL -->
+        <section class="section" id="form-section" style="padding-top: 0;">
+            <form id="pre-reserva-form" novalidate>
+
+                <!-- TIPO DE DOCUMENTO -->
+                <fieldset class="form-fieldset">
+                    <legend>Tipo de Documento</legend>
+                    <div class="form-group full-width">
+                        <select id="tipo-documento" required style="font-weight: 800; font-size: 14px; color: var(--c-primary); border-color: var(--c-orange);">
+                            <option value="pre_reserva" selected>📋 Pre-Reserva de Viaje (Con Saldo Pendiente y Firma Requerida)</option>
+                            <option value="confirmacion">✅ Confirmación de Reserva (Plan Totalmente Pagado)</option>
+                        </select>
+                    </div>
+                </fieldset>
+
+                <!-- 1. DATOS DEL TITULAR -->
+                <fieldset class="form-fieldset">
+                    <legend>1. Datos del Titular</legend>
+                    <div class="form-grid">
+                        <div class="form-group full-width"><label for="titular-nombre">Nombre Completo</label><input type="text" id="titular-nombre" placeholder="Ej: Juan Carlos Pérez García" required></div>
+                        <div class="form-group"><label for="titular-documento">Cédula / Pasaporte</label><input type="text" id="titular-documento" placeholder="Ej: 1000396646" required></div>
+                        <div class="form-group"><label for="titular-nacimiento">Fecha de Nacimiento</label><input type="date" id="titular-nacimiento" required></div>
+                        <div class="form-group"><label for="titular-email">Correo Electrónico</label><input type="email" id="titular-email" placeholder="cliente@correo.com" required></div>
+                        <div class="form-group"><label for="titular-telefono">Teléfono / WhatsApp</label><input type="tel" id="titular-telefono" placeholder="Ej: 3147217006" required></div>
+                        <div class="form-group full-width">
+                            <label for="titular-pago">Método de Pago</label>
+                            <select id="titular-pago" required>
+                                <option value="" disabled selected>Seleccionar...</option>
+                                <option value="Transferencia Bancaria">Transferencia Bancaria</option>
+                                <option value="Link de Pago Bold (Tarjetas)">Link de Pago Bold (Tarjetas)</option>
+                                <option value="Tarjeta de Crédito">Tarjeta de Crédito</option>
+                                <option value="Tarjeta Débito">Tarjeta Débito</option>
+                                <option value="Efectivo">Efectivo</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <!-- 2. DATOS DEL VIAJE -->
+                <fieldset class="form-fieldset">
+                    <legend>2. Datos del Itinerario y Alojamiento</legend>
+                    <div class="form-grid">
+                        <div class="form-group full-width"><label for="viaje-destino">Destino</label><input type="text" id="viaje-destino" placeholder="Ej: Punta Cana, República Dominicana" required></div>
+                        <div class="form-group full-width"><label for="viaje-hotel">Hotel / Hospedaje</label><input type="text" id="viaje-hotel" placeholder="Ej: Riu Republica" required></div>
+                        <div class="form-group"><label for="viaje-checkin">Fecha Check-in</label><input type="date" id="viaje-checkin" required></div>
+                        <div class="form-group"><label for="viaje-checkout">Fecha Check-out</label><input type="date" id="viaje-checkout" required></div>
+                        <div class="form-group"><label for="viaje-noches">Noches Totales</label><input type="text" id="viaje-noches" readonly placeholder="Auto-calculado"></div>
+                        <div class="form-group"><label for="viaje-habitaciones">Habitaciones</label>
+                            <select id="viaje-habitaciones" required>
+                                <option value="1 habitación" selected>1 habitación</option>
+                                <option value="2 habitaciones">2 habitaciones</option>
+                                <option value="3 habitaciones">3 habitaciones</option>
+                                <option value="4 habitaciones">4 habitaciones</option>
+                                <option value="5+ habitaciones">5+ habitaciones</option>
+                            </select>
+                        </div>
+                        <div class="form-group full-width"><label for="viaje-regimen">Régimen de Alimentación</label>
+                            <select id="viaje-regimen" required>
+                                <option value="Todo incluido" selected>Todo Incluido</option>
+                                <option value="Pensión Completa">Pensión Completa</option>
+                                <option value="Media Pensión">Media Pensión</option>
+                                <option value="Desayuno Incluido">Desayuno Incluido</option>
+                                <option value="Solo Hospedaje">Solo Hospedaje</option>
+                            </select>
+                        </div>
+                        <div class="form-group full-width"><label for="pre-reserva-numero">Nº Registro Interno</label><input type="text" id="pre-reserva-numero" readonly></div>
+                    </div>
+                </fieldset>
+
+                <!-- 3. CONTROL FINANCIERO -->
+                <fieldset class="form-fieldset" id="finanzas-fieldset">
+                    <legend>3. Control y Finanzas del Plan</legend>
+                    <div class="form-grid">
+                        <div class="form-group full-width"><label for="viaje-localizador">Localizador Oficial (Código Reserva)</label><input type="text" id="viaje-localizador" placeholder="Ej: TRE-8842 / GDS-9901"></div>
+                        <div class="form-group full-width"><label for="viaje-valor-total">Valor Total del Plan (COP)</label><input type="text" id="viaje-valor-total" inputmode="numeric" placeholder="Ej: 4500000" required></div>
+                        <div class="form-group" id="abono-group"><label for="viaje-abono">Abono Realizado (COP)</label><input type="text" id="viaje-abono" inputmode="numeric" placeholder="Ej: 2000000" required></div>
+                        <div class="form-group" id="saldo-group"><label for="viaje-saldo-pendiente">Saldo Pendiente (COP)</label><input type="text" id="viaje-saldo-pendiente" readonly placeholder="Calculado automáticamente"></div>
+                    </div>
+                </fieldset>
+
+                <!-- 4. PASAJEROS ADICIONALES -->
+                <fieldset class="form-fieldset">
+                    <legend>4. Acompañantes / Pasajeros Adicionales</legend>
+                    <p style="font-size: 12px; color: var(--c-gray); margin-bottom: 15px;">El titular ya está registrado arriba. Agrega aquí a los acompañantes de la reserva.</p>
+                    <div id="passengers-container" class="passengers-container"></div>
+                    <button type="button" id="add-passenger-btn" class="add-passenger-btn">+ Añadir Acompañante</button>
+                </fieldset>
+
+                <!-- 5. CHECKLIST DE SERVICIOS -->
+                <fieldset class="form-fieldset">
+                    <legend>5. Servicios y Coberturas Incluidas</legend>
+                    <div class="services-checklist-container">
+                        <div class="service-item">
+                            <label class="checkbox-container"><input type="checkbox" id="check-vuelos" checked><strong>✈️ Vuelos</strong></label>
+                            <input type="text" id="detail-vuelos" class="service-detail-input" value="Vuelos de ida y vuelta incluidos con equipaje de bodega.">
+                        </div>
+                        <div class="service-item">
+                            <label class="checkbox-container"><input type="checkbox" id="check-hotel" checked><strong>🏨 Hotel</strong></label>
+                            <input type="text" id="detail-hotel" class="service-detail-input" value="Hospedaje confirmado en habitación y régimen seleccionado.">
+                        </div>
+                        <div class="service-item">
+                            <label class="checkbox-container"><input type="checkbox" id="check-traslados"><strong style="color: var(--c-terracotta);">🚐 Traslados</strong></label>
+                            <input type="text" id="detail-traslados" class="service-detail-input" style="display: none;" value="Traslados in/out aeropuerto - hotel - aeropuerto incluidos.">
+                        </div>
+                        <div class="service-item">
+                            <label class="checkbox-container"><input type="checkbox" id="check-tours"><strong style="color: var(--c-terracotta);">🎫 Tours / Excursiones</strong></label>
+                            <input type="text" id="detail-tours" class="service-detail-input" style="display: none;" value="Excursiones y entradas según cotización acordada.">
+                        </div>
+                        <div class="service-item">
+                            <label class="checkbox-container"><input type="checkbox" id="check-seguro" checked><strong>🛡️ Asistencia Médica</strong></label>
+                            <input type="text" id="detail-seguro" class="service-detail-input" value="Tarjeta de asistencia médica internacional con cobertura total.">
+                        </div>
+                    </div>
+                </fieldset>
+
+                <!-- 6. OBSERVACIONES -->
+                <fieldset class="form-fieldset">
+                    <legend>6. Observaciones y Solicitudes Especiales</legend>
+                    <div class="form-grid">
+                        <div class="form-group full-width"><textarea id="observaciones" rows="3" placeholder="Ej: Camas separadas, luna de miel, alergias alimentarias..."></textarea></div>
+                    </div>
+                </fieldset>
+
+                <button type="submit" class="submit-button" id="submit-btn">Generar y Revisar Documento</button>
+            </form>
+        </section>
+
+        <!-- ============================================
+             VISTA PREVIA DEL DOCUMENTO / VOUCHER PARA PDF
+             ============================================ -->
+        <div id="confirmation-section" style="display: none;">
+            <div id="voucher-to-print">
+                
+                <!-- HEADER VOUCHER -->
+                <header class="confirmation-header">
+                    <img src="assets/Isotipo_The_Real_Escape.png" alt="The Real Escape" width="55" style="display: block; margin: 0 auto 8px auto;" onerror="this.style.display='none'">
+                    <span class="brand-name" style="color: #f9f3e1; font-size: 20px;">THE REAL ESCAPE</span>
+                    <span class="brand-sub" style="color: #e9b388;">Agencia de Viajes</span>
+                </header>
+
+                <div class="voucher-content">
+                    <div class="confirmation-pill" id="confirm-pill-text">Pre-Reserva de Viaje</div>
+
+                    <!-- Datos Generales -->
+                    <div class="doc-section">
+                        <div class="doc-section-body" id="confirm-info-box" style="padding: 14px 18px;"></div>
+                    </div>
+
+                    <!-- Titular -->
+                    <div class="doc-section">
+                        <div class="doc-section-header">Titular de la Reserva</div>
+                        <div class="doc-section-body"><div class="form-grid" id="confirm-titular-grid"></div></div>
+                    </div>
+
+                    <!-- Itinerario -->
+                    <div class="doc-section">
+                        <div class="doc-section-header">Itinerario y Hospedaje</div>
+                        <div class="doc-section-body"><div class="form-grid" id="confirm-viaje-grid"></div></div>
+                    </div>
+
+                    <!-- Pasajeros -->
+                    <div class="doc-section">
+                        <div class="doc-section-header">Pasajeros Confirmados</div>
+                        <div class="doc-section-body" id="confirm-pasajeros-body" style="padding: 0;"></div>
+                    </div>
+
+                    <!-- Coberturas -->
+                    <div class="doc-section">
+                        <div class="doc-section-header">Servicios y Coberturas Incluidas</div>
+                        <div class="doc-section-body" id="confirm-services-list"></div>
+                    </div>
+
+                    <!-- Finanzas -->
+                    <div class="doc-section">
+                        <div class="doc-section-header">Estado Financiero y Control de Pago</div>
+                        <div class="doc-section-body"><div id="confirm-finanzas-grid"></div></div>
+                    </div>
+
+                    <!-- Observaciones -->
+                    <div class="doc-section" id="confirm-observaciones-section" style="display: none;">
+                        <div class="doc-section-header">Observaciones</div>
+                        <div class="doc-section-body"><p id="confirm-observaciones" style="font-size: 13px; color: var(--c-dark); line-height: 1.5;"></p></div>
+                    </div>
+
+                    <!-- Enlace Firma Remota -->
+                    <div class="doc-section" id="confirm-firma-box-section">
+                        <div class="doc-section-header">Aceptación y Firma Digital</div>
+                        <div class="doc-section-body" style="text-align: center;">
+                            <p style="font-size: 12px; color: var(--c-gray); margin-bottom: 10px;">Para confirmar este documento, el titular debe ingresar y firmar en el siguiente enlace oficial:</p>
+                            <div id="remote-signature-box" style="padding: 12px; border: 1px dashed var(--c-orange); border-radius: 8px; background-color: var(--c-surface-subtle);">
+                                <strong style="color: var(--c-primary); font-size: 13px;">🔗 <span id="remote-signature-url">tre-reservas.web.app/firma.html</span></strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Legal Footer -->
+                    <div class="company-legal-footer" style="border-radius: 12px; margin-top: 20px;">
+                        <div class="company-legal-inner">
+                            <div class="company-legal-title">
+                                <strong>THE REAL ESCAPE</strong>
+                                <span class="company-tagline">Agencia de Viajes</span>
+                            </div>
+                            <div>
+                                <span class="detail-label">REGISTRO: </span>
+                                <span class="detail-value">NIT: 1000396646-8 • RNT: 288483</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Acciones -->
+            <div style="margin-top: 30px; display: flex; flex-direction: column; gap: 12px; padding: 0 20px;">
+                <button class="submit-button" id="download-and-email-btn">📥 Descargar PDF y Enviar Correo al Cliente</button>
+                <div style="display: flex; gap: 10px;">
+                    <button type="button" class="submit-button" id="edit-btn" style="background: var(--c-surface-subtle); color: var(--c-dark); border-color: var(--c-border);">✏️ Modificar Datos</button>
+                    <button type="button" class="submit-button" id="new-btn" style="background: var(--c-surface-subtle); color: var(--c-dark); border-color: var(--c-border);">🔄 Nueva Reserva</button>
+                </div>
+                <div id="email-status" style="display:none; padding: 12px; border-radius: 8px; font-weight: 700; text-align: center; font-size: 13px;"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <script type="module" src="pre-reserva-script.js"></script>
+</body>
+</html>

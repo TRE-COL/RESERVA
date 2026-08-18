@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserva — The Real Escape</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+    <style>
+        /* Fallbacks de fuentes y estilos responsivos */
+        body, table, td, a {
+            font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+        @media only screen and (max-width: 620px) {
+            .container-table {
+                width: 100% !important;
+                max-width: 100% !important;
+                border-radius: 0 !important;
+            }
+            .content-padding {
+                padding: 25px 20px !important;
+            }
+            .grid-col {
+                display: block !important;
+                width: 100% !important;
+                margin-bottom: 15px !important;
+            }
+            .grid-col:last-child {
+                margin-bottom: 0 !important;
+            }
+        }
+    </style>
+</head>
+<body style="margin: 0; padding: 0; background-color: #f7f6f2; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;">
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f7f6f2; padding: 40px 0; font-family: 'Montserrat', sans-serif;">
+        <tr>
+            <td align="center">
+                <!-- CAJA DE CORREO -->
+                <table role="presentation" cellpadding="0" cellspacing="0" width="600" class="container-table" style="max-width: 600px; width: 100%; background-color: #ffffff; border-radius: 24px; overflow: hidden; box-shadow: 0 15px 45px rgba(26, 60, 34, 0.06); border: 1px solid #e8e6df;">
+                    
+                    <!-- =============================================
+                         CABECERA (HEADER PREMIUM)
+                         ============================================= -->
+                    <tr>
+                        <td align="center" style="background: linear-gradient(135deg, #122a18 0%, #1c3c22 100%); padding: 45px 40px 40px 40px; border-bottom: 4px solid #c59b27;">
+                            <table role="presentation" cellpadding="0" cellspacing="0" width="100%">
+                                <tr>
+                                    <td align="center">
+                                        <!-- Logo circular -->
+                                        <img src="https://i.imgur.com/7KDlyjA.png" alt="The Real Escape Logo" width="65" height="65" style="display: block; width: 65px; height: 65px; border-radius: 50%; border: 2px solid #c59b27; padding: 3px; background-color: #122a18;" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="padding-top: 15px;">
+                                        <h2 style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-size: 24px; font-weight: 700; color: #c59b27; letter-spacing: 0.12em; text-transform: uppercase; font-style: italic;">The Real Escape</h2>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="padding-top: 3px;">
+                                        <p style="margin: 0; font-size: 9px; font-weight: 700; color: #ffffff; letter-spacing: 0.26em; text-transform: uppercase; opacity: 0.8;">Agencia de Viajes Boutique</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="padding-top: 25px;">
+                                        <span style="display: inline-block; background-color: rgba(197, 155, 39, 0.15); color: #ffffff; border: 1px solid rgba(197, 155, 39, 0.4); padding: 8px 20px; border-radius: 30px; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
+                                            {{tipo_documento}}
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- =============================================
+                         SALUDO E INTRODUCCIÓN
+                         ============================================= -->
+                    <tr>
+                        <td class="content-padding" style="padding: 40px 45px 15px 45px;">
+                            <h3 style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-size: 22px; font-weight: 700; color: #122a18; font-style: italic;">¡Hola, {{to_name}}!</h3>
+                            <p style="margin: 15px 0 0 0; font-size: 14px; color: #4a5568; line-height: 1.7; font-weight: 500;">
+                                Nos complace presentarte el resumen oficial y los detalles correspondientes a tu viaje organizado por **The Real Escape**. Hemos registrado todos tus datos de forma segura.
+                            </p>
+                        </td>
+                    </tr>
+
+                    <!-- =============================================
+                         TARJETA: DETALLES DEL DOCUMENTO Y LOCALIZADOR
+                         ============================================= -->
+                    <tr>
+                        <td class="content-padding" style="padding: 15px 45px 15px 45px;">
+                            <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background-color: #faf9f6; border-radius: 16px; border: 1px solid #e9e6dd;">
+                                <tr>
+                                    <td style="padding: 24px;">
+                                        <table role="presentation" cellpadding="0" cellspacing="0" width="100%">
+                                            <tr>
+                                                <td valign="top" style="padding-bottom: 12px; border-bottom: 1px solid #e9e6dd;">
+                                                    <span style="font-size: 10px; font-weight: 700; color: #718096; letter-spacing: 0.08em; text-transform: uppercase; display: block;">Nº DOCUMENTO</span>
+                                                    <strong style="font-size: 15px; color: #122a18; font-weight: 800; display: block; margin-top: 3px;">{{pre_reserva_num}}</strong>
+                                                </td>
+                                                <td valign="top" align="right" style="padding-bottom: 12px; border-bottom: 1px solid #e9e6dd;">
+                                                    <span style="font-size: 10px; font-weight: 700; color: #718096; letter-spacing: 0.08em; text-transform: uppercase; display: block;">LOCALIZADOR DE RESERVA</span>
+                                                    <strong style="font-size: 15px; color: #c59b27; font-weight: 800; display: block; margin-top: 3px; text-transform: uppercase;">{{localizador}}</strong>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2" style="padding-top: 15px;">
+                                                    <span style="font-size: 10px; font-weight: 700; color: #718096; letter-spacing: 0.08em; text-transform: uppercase; display: block;">TITULAR DE LA RESERVA</span>
+                                                    <span style="font-size: 14px; color: #2d3748; font-weight: 600; display: block; margin-top: 3px;">{{to_name}}</span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- =============================================
+                         TARJETA: DETALLES DEL DESTINO Y ALOJAMIENTO
+                         ============================================= -->
+                    <tr>
+                        <td class="content-padding" style="padding: 15px 45px 15px 45px;">
+                            <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background-color: #faf9f6; border-radius: 16px; border: 1px solid #e9e6dd; overflow: hidden;">
+                                <tr>
+                                    <!-- Cabecera de la sección -->
+                                    <td style="background-color: #122a18; padding: 12px 24px; border-bottom: 2px solid #c59b27;">
+                                        <h4 style="margin: 0; font-size: 12px; font-weight: 700; color: #ffffff; letter-spacing: 0.1em; text-transform: uppercase;">🗺️ Itinerario y Alojamiento</h4>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 24px;">
+                                        <table role="presentation" cellpadding="0" cellspacing="0" width="100%">
+                                            <tr>
+                                                <td colspan="2" style="padding-bottom: 15px; border-bottom: 1px dashed #e9e6dd;">
+                                                    <span style="font-size: 10px; font-weight: 700; color: #718096; letter-spacing: 0.08em; text-transform: uppercase; display: block;">DESTINO SELECCIONADO</span>
+                                                    <span style="font-family: 'Playfair Display', Georgia, serif; font-size: 20px; font-weight: 700; color: #122a18; font-style: italic; display: block; margin-top: 4px;">{{destino}}</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2" style="padding: 15px 0 15px 0; border-bottom: 1px dashed #e9e6dd;">
+                                                    <span style="font-size: 10px; font-weight: 700; color: #718096; letter-spacing: 0.08em; text-transform: uppercase; display: block;">HOTEL / HOSPEDAJE</span>
+                                                    <span style="font-family: 'Playfair Display', Georgia, serif; font-size: 18px; font-weight: 600; color: #2d3748; font-style: italic; display: block; margin-top: 4px;">{{hotel}}</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <!-- Grid responsivo para Fechas -->
+                                                <td style="padding-top: 15px; width: 50%;">
+                                                    <span style="font-size: 10px; font-weight: 700; color: #718096; letter-spacing: 0.08em; text-transform: uppercase; display: block;">FECHA DE ENTRADA (CHECK-IN)</span>
+                                                    <span style="font-size: 13px; color: #2d3748; font-weight: 600; display: block; margin-top: 3px;">📅 {{checkin}}</span>
+                                                </td>
+                                                <td style="padding-top: 15px; width: 50%;">
+                                                    <span style="font-size: 10px; font-weight: 700; color: #718096; letter-spacing: 0.08em; text-transform: uppercase; display: block;">FECHA DE SALIDA (CHECK-OUT)</span>
+                                                    <span style="font-size: 13px; color: #2d3748; font-weight: 600; display: block; margin-top: 3px;">📅 {{checkout}}</span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- =============================================
+                         TARJETA: PASAJEROS
+                         ============================================= -->
+                    <tr>
+                        <td class="content-padding" style="padding: 15px 45px 15px 45px;">
+                            <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background-color: #faf9f6; border-radius: 16px; border: 1px solid #e9e6dd; overflow: hidden;">
+                                <tr>
+                                    <td style="background-color: #122a18; padding: 12px 24px; border-bottom: 2px solid #c59b27;">
+                                        <h4 style="margin: 0; font-size: 12px; font-weight: 700; color: #ffffff; letter-spacing: 0.1em; text-transform: uppercase;">👥 Listado de Pasajeros</h4>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 20px 24px;">
+                                        <p style="margin: 0; font-size: 13px; color: #2d3748; line-height: 1.8; white-space: pre-line; font-weight: 500;">{{pasajeros}}</p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- =============================================
+                         TARJETA: SERVICIOS CONTRATADOS (CHECKLIST)
+                         ============================================= -->
+                    <tr>
+                        <td class="content-padding" style="padding: 15px 45px 15px 45px;">
+                            <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background-color: #faf9f6; border-radius: 16px; border: 1px solid #e9e6dd; overflow: hidden;">
+                                <tr>
+                                    <td style="background-color: #122a18; padding: 12px 24px; border-bottom: 2px solid #c59b27;">
+                                        <h4 style="margin: 0; font-size: 12px; font-weight: 700; color: #ffffff; letter-spacing: 0.1em; text-transform: uppercase;">🛡️ Servicios y Coberturas Incluidas</h4>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 24px;">
+                                        <!-- Caja para el string multilineal con preservación de saltos de línea -->
+                                        <div style="white-space: pre-wrap; font-family: 'Montserrat', sans-serif; font-size: 13px; line-height: 1.8; color: #2d3748; font-weight: 500;">{{checklist_servicios}}</div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- =============================================
+                         TARJETA: RESUMEN DE PAGO (FINANZAS)
+                         ============================================= -->
+                    <tr>
+                        <td class="content-padding" style="padding: 15px 45px 15px 45px;">
+                            <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background-color: #ffffff; border-radius: 16px; border: 2px solid #1c3c22; overflow: hidden; box-shadow: 0 8px 20px rgba(28, 60, 34, 0.05);">
+                                <tr>
+                                    <td style="background-color: #1c3c22; padding: 14px 24px; border-bottom: 2px solid #c59b27;">
+                                        <h4 style="margin: 0; font-size: 12px; font-weight: 700; color: #ffffff; letter-spacing: 0.1em; text-transform: uppercase; text-align: center;">💰 Control y Estado de Pago</h4>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 24px; background-color: #faf9f6;">
+                                        <table role="presentation" cellpadding="0" cellspacing="0" width="100%">
+                                            <tr>
+                                                <td style="padding: 8px 0; font-size: 12px; color: #4a5568; font-weight: 600;">VALOR TOTAL DEL PLAN:</td>
+                                                <td align="right" style="padding: 8px 0; font-size: 15px; color: #122a18; font-weight: 700;">{{total_plan}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2" style="padding: 0;"><hr style="border: none; border-top: 1px solid #e9e6dd; margin: 4px 0;"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 8px 0; font-size: 12px; color: #4a5568; font-weight: 600;">ABONO / REALIZADO:</td>
+                                                <td align="right" style="padding: 8px 0; font-size: 15px; color: #1c3c22; font-weight: 700;">{{abono_realizado}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2" style="padding: 0;"><hr style="border: none; border-top: 2px solid #122a18; margin: 6px 0;"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 10px 0; font-size: 13px; color: #122a18; font-weight: 700;">SALDO PENDIENTE (POR PAGAR):</td>
+                                                <td align="right" style="padding: 10px 0; font-size: 18px; color: #c59b27; font-weight: 800;">{{saldo_pendiente}}</td>
+                                            </tr>
+                                        </table>
+                                        
+                                        <!-- Mensaje informativo según el estado -->
+                                        <p style="margin: 15px 0 0 0; font-size: 11px; color: #718096; line-height: 1.5; font-style: italic; text-align: center;">
+                                            * Si tu documento es una Confirmación de Reserva, el saldo pendiente deberá figurar en $0 COP indicando la liquidación total.
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- =============================================
+                         TARJETA: OBSERVACIONES (SI APLICAN)
+                         ============================================= -->
+                    <tr>
+                        <td class="content-padding" style="padding: 15px 45px 15px 45px;">
+                            <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background-color: #faf9f6; border-radius: 12px; border: 1px solid #e9e6dd; border-left: 4px solid #c59b27;">
+                                <tr>
+                                    <td style="padding: 16px 20px;">
+                                        <span style="font-size: 9px; font-weight: 800; color: #718096; letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 5px;">💬 NOTAS Y OBSERVACIONES ADICIONALES</span>
+                                        <p style="margin: 0; font-size: 13px; color: #4a5568; line-height: 1.6; font-weight: 500;">{{observaciones}}</p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- =============================================
+                         SECCIÓN DE BOTONES DE ACCIÓN (CTAS)
+                         ============================================= -->
+                    <tr>
+                        <td class="content-padding" align="center" style="padding: 30px 45px 35px 45px;">
+                            
+                            <!-- BOTÓN 1: FIRMAR TÉRMINOS (REQUERIDO PRE-RESERVAS) -->
+                            <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom: 20px;">
+                                <tr>
+                                    <td align="center">
+                                        <table role="presentation" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td align="center" style="background-color: #ffffff; border-radius: 8px; border: 2px solid #1c3c22; box-shadow: 0 4px 10px rgba(0,0,0,0.04);">
+                                                    <a href="https://tre-reservas.web.app/firma.html?id={{pre_reserva_num}}" target="_blank" style="display: inline-block; padding: 14px 28px; color: #1c3c22; font-size: 14px; font-weight: 700; text-decoration: none; letter-spacing: 0.05em; text-transform: uppercase;">
+                                                        ✍️ Firmar Contrato y Aceptar Términos
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <span style="font-size: 10px; color: #718096; display: block; margin-top: 6px;">* Requerido únicamente para Pre-Reservas con saldo pendiente.</span>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- BOTÓN 2: WHATSAPP DIRECTO -->
+                            <table role="presentation" cellpadding="0" cellspacing="0" width="100%">
+                                <tr>
+                                    <td align="center">
+                                        <table role="presentation" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td align="center" style="background: linear-gradient(135deg, #1c3c22 0%, #122a18 100%); border-radius: 50px; box-shadow: 0 6px 20px rgba(28, 60, 34, 0.25);">
+                                                    <a href="https://wa.me/573147217006?text=Hola!%20Acabo%20de%20recibir%20el%20documento%20de%20mi%20reserva%20{{pre_reserva_num}}%20para%20{{destino}}.%20¿Cuáles%20son%20los%20siguientes%20pasos?" target="_blank" style="display: inline-block; padding: 16px 45px; color: #ffffff; font-size: 15px; font-weight: 700; text-decoration: none; letter-spacing: 0.04em;">
+                                                        💬 Conversar por WhatsApp con mi Asesor
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </td>
+                    </tr>
+
+                    <!-- =============================================
+                         PIE DE PÁGINA (LEGAL FOOTER)
+                         ============================================= -->
+                    <tr>
+                        <td style="background: linear-gradient(135deg, #122a18 0%, #1c3c22 100%); border-top: 4px solid #c59b27; padding: 35px 40px;">
+                            <table role="presentation" cellpadding="0" cellspacing="0" width="100%">
+                                <tr>
+                                    <td valign="middle" style="width: 50%;">
+                                        <p style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-size: 16px; font-weight: 700; color: #ffffff; letter-spacing: 0.08em; font-style: italic;">The Real Escape</p>
+                                        <p style="margin: 4px 0 0 0; font-size: 9px; color: #c59b27; text-transform: uppercase; letter-spacing: 0.2em; font-weight: 700;">Agencia de Viajes Boutique</p>
+                                    </td>
+                                    <td valign="middle" align="right" style="width: 50%;">
+                                        <p style="margin: 0; font-size: 10px; color: rgba(255,255,255,0.9); font-weight: 600; letter-spacing: 0.02em;">NIT: 1000396646-8 &nbsp;•&nbsp; RNT: 288483</p>
+                                        <p style="margin: 4px 0 0 0; font-size: 10px; color: rgba(255,255,255,0.7); letter-spacing: 0.01em;">CLL 56 SUR #38-112, Sabaneta, Antioquia</p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- =============================================
+                         COPYRIGHT
+                         ============================================= -->
+                    <tr>
+                        <td align="center" style="background-color: #0b1c10; padding: 15px 20px;">
+                            <p style="margin: 0; font-size: 9px; color: rgba(255, 255, 255, 0.4); letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500;">
+                                © 2026 The Real Escape · Todos los derechos reservados.
+                            </p>
+                        </td>
+                    </tr>
+
+                </table>
+
+                <!-- NOTA ANTI-SPAM -->
+                <table role="presentation" cellpadding="0" cellspacing="0" width="600" style="max-width: 600px; width: 100%; margin-top: 25px;">
+                    <tr>
+                        <td align="center" style="padding: 0 20px;">
+                            <p style="margin: 0; font-size: 10px; color: #a0aec0; line-height: 1.6; text-align: center; font-weight: 500;">
+                                Has recibido este correo automatizado porque has realizado una solicitud de viaje con The Real Escape.<br>
+                                Si crees que se trata de un error, por favor ponte en contacto con nosotros escribiendo a <a href="mailto:info@therealescape.co" style="color: #4a5568; text-decoration: underline;">info@therealescape.co</a>.
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>
